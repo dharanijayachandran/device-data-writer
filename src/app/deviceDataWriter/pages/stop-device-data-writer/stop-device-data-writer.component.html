@@ -1,0 +1,145 @@
+<div *ngIf="showLoaderImage" class="col-lg-12" style="margin-left:0%; margin-top:0%;margin-bottom:0%;"
+        align="center">
+        <img src="/assets/img/dashboard/ProgressLoader.gif" height="auto" width="50%" alt="Loading........">
+      </div>
+      <br>
+<div class="row margin_0px rowBox">
+    <div class="col-md-12 padding_0px">
+        <div class="padding_Form">
+            <form [formGroup]="stopDataWriterForm">
+                <div class="m-form__group row">
+                    <div class="col-lg-6">
+                        <label i18n="Gateway Template|Gateway Template@@gatewayTemplate*">Gateway Template<span
+                                class="text-danger">*</span> </label>
+                        <div class="form-group">
+                            <div [ngClass]="{'has-error': ((stopDataWriterForm.get('gateWayTemplateId').touched ||
+                            stopDataWriterForm.get('gateWayTemplateId').dirty) &&
+                            stopDataWriterForm.get('gateWayTemplateId').errors)}">
+                            <!-- <ejs-dropdownlist id='ddlelement' #ddlelement class="form-control p-0" [value]='gateWayTemplateId'
+                  name="gateWayTemplateId" formControlName="gateWayTemplateId" [dataSource]='gatewayTemplateList'
+                  [placeholder]='gatewayTemplateWaterMark' [fields]='gatewayTemplateFields' [popupHeight]='height'
+                  [sortOrder]="sortDropDown" (filtering)='onFilteringGatewayTemplates($event)'
+                  [filterBarPlaceholder]="filterPlaceholder" [allowFiltering]='true'
+                  (change)='gateWayTemplateChange($event.itemData.id)' [locale]='locale'></ejs-dropdownlist> -->
+                                <select formControlName="gateWayTemplateId"
+                                    (change)="gateWayTemplateChange($event.target.value)" class="form-control m-input"
+                                    required>
+                                    <option i18n="Option|Select@@select" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let gatewayTemplate of gatewayTemplateList"
+                                        [value]="gatewayTemplate.id">
+                                        {{gatewayTemplate.name}}
+                                    </option>
+                                </select>
+                                <span class="help-block" *ngIf="((stopDataWriterForm.get('gateWayTemplateId').touched ||
+                                stopDataWriterForm.get('gateWayTemplateId').dirty) &&
+                                stopDataWriterForm.get('gateWayTemplateId').errors)">
+                                    <span i18n="Message|Please Select GateWay Template@@gateWayTemplate.message"
+                                        *ngIf="stopDataWriterForm.get('gateWayTemplateId').errors.required">
+                                        Please select GateWay Template
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label
+                            i18n="Gateway Template Comm Protocol|Gateway Template Comm Protocol@@gatewayTemplateCommunicationProtocol*">Gateway
+                            Template Comm
+                            Protocol<span class="text-danger">*</span> </label>
+                        <div class="form-group">
+                            <div [ngClass]="{'has-error': ((stopDataWriterForm.get('communicationProtocolId').touched ||
+                            stopDataWriterForm.get('communicationProtocolId').dirty) &&
+                            stopDataWriterForm.get('communicationProtocolId').errors)}">
+                                <select formControlName="communicationProtocolId" (change)="commProtocolChange($event)"
+                                    class="form-control m-input" required>
+                                    <option i18n="Option|Select@@select" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let comm of communicationProtocolList" [value]="comm.id">
+                                        {{comm.commProtocol.name}}</option>
+
+                                </select>
+                                <span class="help-block" *ngIf="((stopDataWriterForm.get('communicationProtocolId').touched ||
+                                stopDataWriterForm.get('communicationProtocolId').dirty) &&
+                                stopDataWriterForm.get('communicationProtocolId').errors)">
+                                    <span
+                                        i18n="Message| Please Select Gateway Template Communication Protocol@@gatewayTemplateCommunicationProtocol.message"
+                                        *ngIf="stopDataWriterForm.get('communicationProtocolId').errors.required">
+                                        Please Select Gateway Template Communication Protocol
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-form__group row">
+                    <div class="col-lg-6">
+                        <label i18n="Gateway Template DH|Gateway Template DH@@gatewayTemplateDh*">Gateway Template DH
+                            <span class="text-danger">*</span> </label>
+                        <div class="form-group">
+                            <div [ngClass]="{'has-error': ((stopDataWriterForm.get('dhCode').touched ||
+                            stopDataWriterForm.get('dhCode').dirty) &&
+                            stopDataWriterForm.get('dhCode').errors)}">
+                            <!-- <ejs-dropdownlist id='ddlelement' #ddlelement class="form-control p-0" [value]='dhCode'
+                            name="dhCode" formControlName="dhCode" [dataSource]='dataHandlerList'
+                            [placeholder]='dataHandlerWaterMark' [fields]='dataHandlerFields' [popupHeight]='height'
+                            [sortOrder]="sortDropDown" (filtering)='onFilteringDataHandler($event)'
+                            [filterBarPlaceholder]="filterPlaceholder" [allowFiltering]='true'
+                            [locale]='locale'></ejs-dropdownlist> -->
+                                <select formControlName="dhCode"
+                                    class="form-control m-input" required>
+                                    <option i18n="Option|Select@@select" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let dataHandler of dataHandlerList" [value]="dataHandler.dhCode">
+                                        {{dataHandler.name}}</option>
+                                </select>
+                                <span class="help-block" *ngIf="((stopDataWriterForm.get('dhCode').touched ||
+                                stopDataWriterForm.get('dhCode').dirty) &&
+                                stopDataWriterForm.get('dhCode').errors)">
+
+                                    <span i18n="Message|Please select Gateway Template DH@@gatewayTemplateDH.message"
+                                        *ngIf="stopDataWriterForm.get('dhCode').errors.required">
+                                        Please select Gateway Template DH
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <label i18n="Gateway|Gateway @@gateway*">Gateway<span class="text-danger">*</span></label>
+                        <div class="form-group">
+                            <div>
+                                <angular2-multiselect [data]="gateWayForMultiSelect" [settings]="settings"
+                                    (onSelect)="OnselectedGateWayItems($event)"
+                                    (onDeSelect)="OnItemDeSelectGateWay($event)"
+                                    (onSelectAll)="onSelectAllGateWay($event)"
+                                    (onDeSelectAll)="onDeSelectAllGateWay($event)" formControlName="gateways">
+
+                                </angular2-multiselect>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            
+                <div class="path finalLine"></div>
+                <div class="row" style="    text-align: right;padding: 23px 0;">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-secondary text-center"
+                            [disabled]="(!stopDataWriterForm.dirty && stopDataWriterForm.pristine)"
+                            i18n="Reset button|Reset@@reset" (click)="resetForm()">
+                            Reset
+                        </button>
+                        &nbsp;
+                        <span i18n-matTooltip="Tooltip validation|Fill the mandatory fields@@fillTheMandatoryFields"
+                            matTooltip="Fill the mandatory fields" [matTooltipDisabled]='(stopDataWriterForm.valid)'>
+                            <button i18n="Stop button|Stop@@stop" class="btn btn-primary text-center"
+                                (click)="sendForm()" type="submit" [disabled]="!(stopDataWriterForm.valid)">
+                                Stop</button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Global modal notification component selector for cancel and final save form-->
+<app-modal-notification></app-modal-notification>

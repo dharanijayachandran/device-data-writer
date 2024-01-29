@@ -1,0 +1,12 @@
+.mat-radio-group{
+    display:flex ;
+    width:40%;
+    font-size:0.5em;
+    justify-content: space-between;
+  }
+  .example-full-width {
+    width: 100%;
+  }
+  textarea.textAreaHeight {
+    height: 80px !important;
+  }

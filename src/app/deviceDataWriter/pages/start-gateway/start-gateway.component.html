@@ -1,0 +1,293 @@
+<div *ngIf="showLoaderImage" class="col-lg-12" style="margin-left:0%; margin-top:0%;margin-bottom:0%;"
+        align="center">
+        <img src="/assets/img/dashboard/ProgressLoader.gif" height="auto" width="50%" alt="Loading........">
+      </div>
+<br>
+<div class="row margin_0px rowBox">
+    <div class="col-md-12 padding_0px">
+        <div class="padding_Form">
+            <form [formGroup]="gatewayForm">
+                    <div class="m-form__group row">
+                    <div class="col-lg-6">
+                        <label i18n="Gateway|Gateway@@gateway*">Gateway<span class="text-danger">*</span> </label>
+                        <div class="form-group">
+                            <div [ngClass]="{'has-error': ((gatewayForm.get('gatewayId').touched ||
+                            gatewayForm.get('gatewayId').dirty) &&
+                            gatewayForm.get('gatewayId').errors)}">
+                            <!-- <ejs-dropdownlist id='ddlelement' #ddlelement class="form-control p-0" [value]='gatewayId'
+                            name="gatewayId" formControlName="gatewayId" [dataSource]='gatewaysList'
+                            [placeholder]='gatewayWaterMark' [fields]='gatewayFields' [popupHeight]='height'
+                            [sortOrder]="sortDropDown" (filtering)='onFilteringGateway($event)'
+                            [filterBarPlaceholder]="filterPlaceholder" [allowFiltering]='true'
+                            (change)='gateWayChange($event)' [locale]='locale'></ejs-dropdownlist> -->
+                                <select (change)="gateWayChange($event)" formControlName="gatewayId"
+                                    class="form-control m-input" required>
+                                    <option i18n="Option|Select@@select" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let gateway of gatewaysList" [value]="gateway.id">
+                                        {{gateway.name}}
+                                    </option>
+                                </select>
+                                <span class="help-block" *ngIf="((gatewayForm.get('gatewayId').touched ||
+                                gatewayForm.get('gatewayId').dirty) &&
+                                gatewayForm.get('gatewayId').errors)">
+                                    <span i18n="Message|Please Select GateWay@@gateWay.message"
+                                        *ngIf="gatewayForm.get('gatewayId').errors.required">
+                                        Please Select Gateway
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label
+                            i18n="Communication Protocol|Communication Protocol@@communicationProtocol*">Communication
+                            Protocol<span class="text-danger">*</span> </label>
+                        <div class="form-group">
+                            <div [ngClass]="{'has-error': ((gatewayForm.get('communicationProtocolId').touched ||
+                        gatewayForm.get('communicationProtocolId').dirty) &&
+                        gatewayForm.get('communicationProtocolId').errors)}">
+                                <select formControlName="communicationProtocolId" (change)="commProtocolChange($event)"
+                                    class="form-control m-input" required>
+                                    <option i18n="Option|Select@@select" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let comm of communicationProtocolList" [value]="comm.id">
+                                        {{comm.commProtocol.name}}</option>
+
+                                </select>
+                                <span class="help-block" *ngIf="((gatewayForm.get('communicationProtocolId').touched ||
+                            gatewayForm.get('communicationProtocolId').dirty) &&
+                            gatewayForm.get('communicationProtocolId').errors)">
+                                    <span
+                                        i18n="Message| Please Select Communication Protocol@@communicationProtocol.message"
+                                        *ngIf="gatewayForm.get('communicationProtocolId').errors.required">
+                                        Please Select Communication Protocol
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                      </div>
+                   <div class="m-form__group row">
+                    <div class="col-lg-6">
+                        <label i18n="Data Handler|Data Handler@@dataHandler*">Data Handler<span class="text-danger">*</span></label>
+                        <div class="form-group">
+                            <div [ngClass]="{'has-error': ((gatewayForm.get('dataHandlerId').touched ||
+                            gatewayForm.get('dataHandlerId').dirty) &&
+                            gatewayForm.get('dataHandlerId').errors)}">
+                            <!-- <ejs-dropdownlist id='ddlelement' #ddlelement class="form-control p-0" [value]='dataHandlerId'
+                            name="dataHandlerId" formControlName="dataHandlerId" [dataSource]='dataHandlerList'
+                            [placeholder]='dataHandlerWaterMark' [fields]='dataHandlerFields' [popupHeight]='height'
+                            [sortOrder]="sortDropDown" (filtering)='onFilteringDataHandler($event)'
+                            [filterBarPlaceholder]="filterPlaceholder" [allowFiltering]='true'
+                            (change)='dHChange($event)' [locale]='locale'></ejs-dropdownlist> -->
+                                <select (change)="dHChange($event)" formControlName="dataHandlerId"
+                                    class="form-control m-input" required>
+                                    <option i18n="Option|Select@@select" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let dataHandler of dataHandlerList" [value]="dataHandler.id">
+                                        {{dataHandler.name}}</option>
+
+                                </select>
+                                <span class="help-block" *ngIf="((gatewayForm.get('dataHandlerId').touched ||
+                                gatewayForm.get('dataHandlerId').dirty) &&
+                                gatewayForm.get('dataHandlerId').errors)">
+
+                                    <span i18n="Message|Please select Data Handler@@dataHandler.message"
+                                        *ngIf="gatewayForm.get('dataHandlerId').errors.required">
+                                        Please Select Data Handler
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <br>
+                        <mat-radio-group formControlName="isFramed"  (change)="onChangeRadioInGateway($event)" aria-label="Select an option">
+                            <mat-radio-button i18n="Framed Data|Framed Data@@framedData*" value="Yes">Framed Data</mat-radio-button>
+                            <mat-radio-button i18n="Gateway Tags|Gateway Tags@@gatewayTags" value="No"> Gateway Tags </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+
+
+                   </div>
+                   <div class="m-form__group row">
+                    <div class="form-group " class="col-lg-1" style="width: 12.499999995%;
+                    flex: 0 0 12.499%;max-width: 12.499%;">
+                        <mat-checkbox i18n="Repeat Command|Repeat Command@@repeat Command" [checked]="myCheckBox" formControlName="check" 
+                             (click)="enableTextBox()">Repeat Command</mat-checkbox>
+
+                    </div>
+
+                    <div *ngIf="isChecked" class="col-lg-2" style="width: 12.499999995%;
+                    flex: 0 0 20.833%;max-width: 20.833%;">
+                        <!-- <label i18n="Publish Interval|Publish Interval@@publishInterval" class=" m-input-icon m-input-icon--right">Publish Interval<span class="text-danger">*</span></label> -->
+                        <div class="form-group">
+
+                            <input type="text" formControlName="interval" class="form-control" id="time"
+                                i18n-placeholder="Publish Interval (Number Only)@@publishInterval(number only).placeholder"
+                                placeholder="Publish Interval (number only)" />
+
+                        </div>
+
+                        <span class="help-block" *ngIf=" ((gatewayForm.get('interval').touched ||
+                            gatewayForm.get('interval').dirty) &&
+                            gatewayForm.get('interval').errors)">
+
+                            <span i18n="Message|Please Enter Number Only@@onlyNumber"
+                                *ngIf="gatewayForm.get('interval').errors.pattern ">
+                                Please enter number only
+                            </span>
+                            <span i18n="Message|Please enter publish interval@@enterPublishInterval"
+                                *ngIf="gatewayForm.get('interval').errors.required ">
+                                Please enter publish interval
+                            </span>
+
+                        </span>
+
+                    </div>
+                    <div *ngIf="isChecked" class="col-lg-2">
+                        <div class="form-group">
+                            <!-- <label i18n="Unit|Unit@@unit">Unit<span class="text-danger">*</span></label> -->
+                            <select formControlName="timeUnit" class="form-control m-input">
+                                <option i18n="Option|Time Unit@@timeUnit" [ngValue]="null">Time Unit</option>
+                                <option *ngFor="let unit of units" [value]="unit.value">
+                                    {{unit.viewValue}}
+                                </option>
+                            </select>
+                        </div>
+                        <span class="help-block" *ngIf=" ((gatewayForm.get('timeUnit').touched ||
+                            gatewayForm.get('timeUnit').dirty) &&
+                            gatewayForm.get('timeUnit').errors)">
+
+
+                            <span i18n="Message|Please enter time unit@@entertimeUnit"
+                                *ngIf="gatewayForm.get('timeUnit').errors.required ">
+                                Please select time unit
+                            </span>
+
+                        </span>
+
+                    </div>
+
+
+                   </div>
+                   <br>
+                   <div *ngIf="framedDataEnable" class="m-form__group row">
+                    <div class="col-lg-6">
+                        <label i18n="Framed Data|Framed Data@@framedData*" class="">Framed Data<span
+                                class="text-danger">*</span></label>
+                        <div class="form-group">
+                            <div [ngClass]="{'has-error': ((gatewayForm.get('framedData').touched ||
+                  gatewayForm.get('framedData').dirty) &&
+                  gatewayForm.get('framedData').errors)}">
+                                <!-- <mat-form-field class="example-full-width">
+                                    <mat-label>Framed Data</mat-label>
+                                    <textarea formControlName="framedData" matInput
+                                        placeholder="Framed Data *"></textarea>
+                                </mat-form-field> -->
+                                <!-- <input type="text" formControlName="framedData" class="form-control m-input"
+                                    i18n-placeholder="Framed Datae@@framedData.placeholder"
+                                    placeholder="Framed Data"> -->
+                                    <div class="form-group">
+                                      <textarea  type="text" formControlName="framedData" class="form-control m-input textAreaHeight"
+                                      i18n-placeholder="@@framedData.placeholder" placeholder="Framed Data"></textarea>
+                                    </div>
+                                <span class="help-block" *ngIf="((gatewayForm.get('framedData').touched ||
+                    gatewayForm.get('framedData').dirty) &&
+                    gatewayForm.get('framedData').errors)">
+                                    <span i18n="Message|Please enter framed data@@framedData.message"
+                                        *ngIf="(gatewayForm.get('framedData').errors.required || gatewayForm.get('framedData').errors.whitespace)">
+                                        Please Enter Framed Data
+                                    </span>
+
+
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <br>
+
+
+                    <div *ngIf="isSelected">
+
+                        <div formArrayName="dhTags">
+                            <div class="form-group m-form__group row">
+                                <div class="col-lg-6"
+                                    *ngFor="let dsInputParam of gatewayForm.get('dhTags')['controls']; let i=index;">
+                                    <ng-container [formGroupName]="i">
+                                        <div [ngClass]="{'has-error': ((dsInputParam.get('value').touched ||
+                                             dsInputParam.get('value').dirty) &&
+                                              dsInputParam.get('value').errors)}">
+
+                                            <label
+                                                class=" m-input-icon m-input-icon--right">{{dataHandlerTagsList[i].nodeIoTag.name}}
+                                                <span class="text-danger">*</span></label>
+                                            <div class="form-group">
+                                                <input type="hidden" formControlName="gatewayIoTagId"
+                                                    [ngModel]="dataHandlerTagsList[i].nodeIoTag.id">
+                                                <input type="hidden" formControlName="gatewayIoDhTagId"
+                                                    [ngModel]="dataHandlerTagsList[i].id">
+                                                <input type="text" formControlName="value" class="form-control"
+                                                    id="data" placeholder={{dataHandlerTagsList[i].nodeIoTag.name}} />
+
+                                            </div>
+
+                                            <span class="help-block" *ngIf=" ((dsInputParam.get('value').touched ||
+                                        dsInputParam.get('value').dirty) &&
+                                        dsInputParam.get('value').errors)">
+                                                <span
+                                                    i18n="Message|Please enter only Alphabate value@@onlyAlphabatevalue.message"
+                                                    *ngIf="gatewayForm.get('dhTags')['controls'][i].get('value').errors.pattern && dataHandlerTagsList[i].dataTypeName == 'String'">
+                                                    Please enter only Alphabate value
+                                                </span>
+                                                <span
+                                                    i18n="Message|Please enter only Numeric value@@onlyNumericvalue.message"
+                                                    *ngIf="gatewayForm.get('dhTags')['controls'][i].get('value').errors.pattern && (dataHandlerTagsList[i].dataTypeName == 'Integer' || dataHandlerTagsList[i].dataTypeName == 'Long')">
+                                                    Please enter only Numeric value
+                                                </span>
+                                                <span
+                                                    i18n="Message|Please enter only Decimal value@@onlyDecimalvalue.message"
+                                                    *ngIf="gatewayForm.get('dhTags')['controls'][i].get('value').errors.pattern && (dataHandlerTagsList[i].dataTypeName == 'Double' || dataHandlerTagsList[i].dataTypeName == 'Float')">
+                                                    Please enter only Decimal value
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </ng-container>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                    <br>
+
+
+
+                    <div class="path finalLine"></div>
+                    <div class="row" style="    text-align: right;padding: 23px 0;">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-secondary text-center"
+                                [disabled]="(!gatewayForm.dirty && gatewayForm.pristine)"
+                                i18n="Reset button|Reset@@reset" (click)="resetForm()">
+                                Reset
+                            </button>
+                            &nbsp;
+                            <span i18n-matTooltip="Tooltip validation|Fill the mandatory fields@@fillTheMandatoryFields"
+                                matTooltip="Fill the mandatory fields" [matTooltipDisabled]='(gatewayForm.valid)'>
+                                <button i18n="Send button|Send@@send" class="btn btn-primary text-center"
+                                    (click)="sendForm()" type="submit" [disabled]="!(gatewayForm.valid)">
+                                    Send</button>
+                            </span>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Global modal notification component selector for cancel and final save form-->
+<app-modal-notification></app-modal-notification>

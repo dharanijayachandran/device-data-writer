@@ -1,0 +1,11 @@
+<mat-radio-group  (change)="onChangeStart($event)" aria-label="Select an option">
+    <mat-radio-button i18n="Gateway Template|Gateway Template@@gatewayTemplate" checked value="1"> Gateway Template </mat-radio-button>
+     <mat-radio-button i18n="Gateway|Gateway@@gateway" value="2"> Gateway </mat-radio-button>
+</mat-radio-group>
+
+<div *ngIf="startValue==1">
+    <app-device-data-writer-view></app-device-data-writer-view>
+</div>
+<div *ngIf="startValue==2">
+    <device-data-writer-start-gateway></device-data-writer-start-gateway>
+</div>

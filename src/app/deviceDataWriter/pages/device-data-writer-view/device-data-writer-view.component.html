@@ -1,0 +1,236 @@
+<div *ngIf="showLoaderImage" class="col-lg-12" style="margin-left:0%; margin-top:0%;margin-bottom:0%;" align="center">
+  <img src="/assets/img/dashboard/ProgressLoader.gif" height="auto" width="50%" alt="Loading........">
+</div>
+
+<br>
+<div class="row margin_0px rowBox">
+  <div class="col-md-12 padding_0px">
+    <div class="padding_Form">
+      <form [formGroup]="deviceDataWriterForm">
+        <div class="m-form__group row">
+          <div class="col-lg-6">
+            <label i18n="Gateway Template|Gateway Template@@gatewayTemplate*">Gateway Template<span
+                class="text-danger">*</span> </label>
+            <div class="form-group">
+              <div [ngClass]="{'has-error': ((deviceDataWriterForm.get('gateWayTemplateId').touched ||
+                            deviceDataWriterForm.get('gateWayTemplateId').dirty) &&
+                            deviceDataWriterForm.get('gateWayTemplateId').errors)}">
+                <!-- <ejs-dropdownlist id='ddlelement' #ddlelement class="form-control p-0" [value]='gateWayTemplateId'
+                  name="gateWayTemplateId" formControlName="gateWayTemplateId" [dataSource]='gatewayTemplateList'
+                  [placeholder]='gatewayTemplateWaterMark' [fields]='gatewayTemplateFields' [popupHeight]='height'
+                  [sortOrder]="sortDropDown" (filtering)='onFilteringGatewayTemplates($event)'
+                  [filterBarPlaceholder]="filterPlaceholder" [allowFiltering]='true'
+                  (change)='gateWayTemplateChange($event.itemData.id)' [locale]='locale'></ejs-dropdownlist> -->
+                <select formControlName="gateWayTemplateId" (change)="gateWayTemplateChange($event.target.value)"
+                  class="form-control m-input" required>
+                  <option i18n="Option|Select@@select" [ngValue]="null">--Select--</option>
+                  <option *ngFor="let gatewayTemplate of gatewayTemplateList" [value]="gatewayTemplate.id">
+                    {{gatewayTemplate.name}}
+                  </option>
+                </select>
+                <span class="help-block" *ngIf="((deviceDataWriterForm.get('gateWayTemplateId').touched ||
+                                deviceDataWriterForm.get('gateWayTemplateId').dirty) &&
+                                deviceDataWriterForm.get('gateWayTemplateId').errors)">
+                  <span i18n="Message|Please Select GateWay Template@@gateWayTemplate.message"
+                    *ngIf="deviceDataWriterForm.get('gateWayTemplateId').errors.required">
+                    Please select GateWay Template
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <label
+              i18n="Gateway Template Comm Protocol|Gateway Template Comm Protocol@@gatewayTemplateCommunicationProtocol*">Gateway
+              Template Comm
+              Protocol<span class="text-danger">*</span> </label>
+            <div class="form-group">
+              <div [ngClass]="{'has-error': ((deviceDataWriterForm.get('communicationProtocolId').touched ||
+                        deviceDataWriterForm.get('communicationProtocolId').dirty) &&
+                        deviceDataWriterForm.get('communicationProtocolId').errors)}">
+                <select formControlName="communicationProtocolId" (change)="commProtocolChange($event)"
+                  class="form-control m-input" required>
+                  <option i18n="Option|Select@@select" [ngValue]="null">--Select--</option>
+                  <option *ngFor="let comm of communicationProtocolList" [value]="comm.id">
+                    {{comm.commProtocol.name}}</option>
+
+                </select>
+                <span class="help-block" *ngIf="((deviceDataWriterForm.get('communicationProtocolId').touched ||
+                            deviceDataWriterForm.get('communicationProtocolId').dirty) &&
+                            deviceDataWriterForm.get('communicationProtocolId').errors)">
+                  <span
+                    i18n="Message| Please Select Gateway Template Communication Protocol@@gatewayTemplateCommunicationProtocol.message"
+                    *ngIf="deviceDataWriterForm.get('communicationProtocolId').errors.required">
+                    Please Select Gateway Template Communication Protocol
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="m-form__group row">
+          <div class="col-lg-6">
+            <label i18n="Gateway Template DH|Gateway Template DH@@gatewayTemplateDh*">Gateway Template DH
+              <span class="text-danger">*</span> </label>
+            <div class="form-group">
+              <div [ngClass]="{'has-error': ((deviceDataWriterForm.get('dataHandlerId').touched ||
+                        deviceDataWriterForm.get('dataHandlerId').dirty) &&
+                        deviceDataWriterForm.get('dataHandlerId').errors)}">
+                <select formControlName="dataHandlerId" (change)="dHChange($event)" class="form-control m-input"
+                  required>
+                  <option i18n="Option|Select@@select" [ngValue]="null">--Select--</option>
+                  <option *ngFor="let dataHandler of dataHandlerList" [value]="dataHandler.id">
+                    {{dataHandler.name}}</option>
+                </select>
+                <!-- <ejs-dropdownlist id='ddlelement' #ddlelement class="form-control p-0" [value]='dataHandlerId'
+                            name="dataHandlerId" formControlName="dataHandlerId" [dataSource]='dataHandlerList'
+                            [placeholder]='dataHandlerWaterMark' [fields]='dataHandlerFields' [popupHeight]='height'
+                            [sortOrder]="sortDropDown" (filtering)='onFilteringDataHandler($event)'
+                            [filterBarPlaceholder]="filterPlaceholder" [allowFiltering]='true'
+                            (change)='dHChange($event)' [locale]='locale'></ejs-dropdownlist> -->
+                <span class="help-block" *ngIf="((deviceDataWriterForm.get('dataHandlerId').touched ||
+                            deviceDataWriterForm.get('dataHandlerId').dirty) &&
+                            deviceDataWriterForm.get('dataHandlerId').errors)">
+                  <span i18n="Message|Please select Gateway Template DH@@gatewayTemplateDH.message"
+                    *ngIf="deviceDataWriterForm.get('dataHandlerId').errors.required">
+                    Please select Gateway Template DH
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <label i18n="Gateway|Gateway @@gateway*">Gateway<span class="text-danger">*</span></label>
+            <div class="form-group">
+              <div>
+                <angular2-multiselect [data]="gateWayForMultiSelect" [settings]="settings"
+                  (onSelect)="OnselectedGateWayItems($event)" (onDeSelect)="OnItemDeSelectGateWay($event)"
+                  (onSelectAll)="onSelectAllGateWay($event)" (onDeSelectAll)="onDeSelectAllGateWay($event)"
+                  formControlName="gateways">
+
+                </angular2-multiselect>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="m-form__group row">
+
+          <div class="col-lg-2">
+            <div class="form-group" style="width: 12.499999995%; flex: 0 0 12.499%; max-width: 12.499%;">
+              <mat-checkbox i18n="Repeat Command|Repeat Command@@repeat Command" [checked]="myCheckBox"
+                formControlName="check" (click)="enableTextBox()">Repeat Command</mat-checkbox>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div *ngIf="isChecked">
+              <!-- <label i18n="Publish Interval|Publish Interval@@publishInterval" class=" m-input-icon m-input-icon--right">Publish Interval<span class="text-danger">*</span></label> -->
+              <div class="form-group">
+                <input type="text" formControlName="interval" class="form-control" id="time"
+                  i18n-placeholder="Publish Interval (Number Only)@@publishInterval(number only).placeholder"
+                  placeholder="Publish Interval (number only)" />
+              </div>
+              <span class="help-block" *ngIf=" ((deviceDataWriterForm.get('interval').touched ||
+                                      deviceDataWriterForm.get('interval').dirty) &&
+                                      deviceDataWriterForm.get('interval').errors)">
+                <span i18n="Message|Please Enter Number Only@@onlyNumber"
+                  *ngIf="deviceDataWriterForm.get('interval').errors.pattern ">
+                  Please enter number only
+                </span>
+                <span i18n="Message|Please enter publish interval@@enterPublishInterval"
+                  *ngIf="deviceDataWriterForm.get('interval').errors.required ">
+                  Please enter publish interval
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div *ngIf="isChecked">
+              <div class="form-group">
+                <!-- <label i18n="Unit|Unit@@unit">Unit<span class="text-danger">*</span></label> -->
+                <select formControlName="timeUnit" class="form-control m-input">
+                  <option i18n="Option|Time Unit@@timeUnit" [ngValue]="null">Time Unit</option>
+                  <option *ngFor="let unit of units" [value]="unit.value">
+                    {{unit.viewValue}}
+                  </option>
+                </select>
+              </div>
+              <span class="help-block" *ngIf=" ((deviceDataWriterForm.get('timeUnit').touched ||
+                                  deviceDataWriterForm.get('timeUnit').dirty) &&
+                                  deviceDataWriterForm.get('timeUnit').errors)">
+                <span i18n="Message|Please enter time unit@@entertimeUnit"
+                  *ngIf="deviceDataWriterForm.get('timeUnit').errors.required ">
+                  Please select time unit
+                </span>
+              </span>
+            </div>
+          </div>
+
+        </div>
+        <br>
+        <div *ngIf="isSelected">
+          <div formArrayName="dhTags">
+            <div class="form-group m-form__group row">
+              <div class="col-lg-6"
+                *ngFor="let dsInputParam of deviceDataWriterForm.get('dhTags')['controls']; let i=index;">
+                <ng-container [formGroupName]="i">
+                  <div [ngClass]="{'has-error': ((dsInputParam.get('value').touched ||
+                                             dsInputParam.get('value').dirty) &&
+                                              dsInputParam.get('value').errors)}">
+                    <label class=" m-input-icon m-input-icon--right">{{dataHandlerTagsList[i].nodeIoTag.name}}
+                      <span class="text-danger">*</span></label>
+                    <div class="form-group">
+                      <input type="hidden" formControlName="gatewayIoTagId"
+                        [ngModel]="dataHandlerTagsList[i].nodeIoTag.id">
+                      <input type="hidden" formControlName="gatewayIoDhTagId" [ngModel]="dataHandlerTagsList[i].id">
+                      <input type="text" formControlName="value" class="form-control" id="data"
+                        placeholder={{dataHandlerTagsList[i].nodeIoTag.name}} />
+                    </div>
+                    <span class="help-block" *ngIf=" ((dsInputParam.get('value').touched ||
+                                        dsInputParam.get('value').dirty) &&
+                                        dsInputParam.get('value').errors)">
+                      <span i18n="Message|Please enter only Alphabate value@@onlyAlphabatevalue.message"
+                        *ngIf="deviceDataWriterForm.get('dhTags')['controls'][i].get('value').errors.pattern && dataHandlerTagsList[i].dataTypeName == 'String'">
+                        Please enter only Alphabate value
+                      </span>
+                      <span i18n="Message|Please enter only Numeric value@@onlyNumericvalue.message"
+                        *ngIf="deviceDataWriterForm.get('dhTags')['controls'][i].get('value').errors.pattern && (dataHandlerTagsList[i].dataTypeName == 'Integer' || dataHandlerTagsList[i].dataTypeName == 'Long')">
+                        Please enter only Numeric value
+                      </span>
+                      <span i18n="Message|Please enter only Decimal value@@onlyDecimalvalue.message"
+                        *ngIf="deviceDataWriterForm.get('dhTags')['controls'][i].get('value').errors.pattern && (dataHandlerTagsList[i].dataTypeName == 'Double' || dataHandlerTagsList[i].dataTypeName == 'Float')">
+                        Please enter only Decimal value
+                      </span>
+                    </span>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="path finalLine"></div>
+        <div class="row" style="text-align: right;padding: 23px 0;">
+          <div class="col-md-12">
+            <button type="button" class="btn btn-secondary text-center"
+              [disabled]="(!deviceDataWriterForm.dirty && deviceDataWriterForm.pristine)"
+              i18n="Reset button|Reset@@reset" (click)="resetForm()">
+              Reset
+            </button>
+            &nbsp;
+            <span i18n-matTooltip="Tooltip validation|Fill the mandatory fields@@fillTheMandatoryFields"
+              matTooltip="Fill the mandatory fields" [matTooltipDisabled]='(deviceDataWriterForm.valid)'>
+              <button i18n="Send button|Send@@send" class="btn btn-primary text-center" (click)="sendForm()"
+                type="submit" [disabled]="!(deviceDataWriterForm.valid)">
+                Send</button>
+            </span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Global modal notification component selector for cancel and final save form-->
+<app-modal-notification></app-modal-notification>

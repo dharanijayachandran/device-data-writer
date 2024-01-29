@@ -1,0 +1,127 @@
+<div *ngIf="showLoaderImage" class="col-lg-12" style="margin-left:0%; margin-top:0%;margin-bottom:0%;"
+        align="center">
+        <img src="/assets/img/dashboard/ProgressLoader.gif" height="auto" width="50%" alt="Loading........">
+      </div>
+<br><div class="row margin_0px rowBox">
+    <div class="col-md-12 padding_0px">
+        <div class="padding_Form">
+            <form [formGroup]="stopGatewayForm">
+                <div class="m-form__group row">
+                    <div class="col-lg-6">
+                        <label i18n="Gateway|Gateway@@gateway*">Gateway<span class="text-danger">*</span> </label>
+                        <div class="form-group">
+                            <div [ngClass]="{'has-error': ((stopGatewayForm.get('gatewayId').touched ||
+                            stopGatewayForm.get('gatewayId').dirty) &&
+                            stopGatewayForm.get('gatewayId').errors)}">
+                            <!-- <ejs-dropdownlist id='ddlelement' #ddlelement class="form-control p-0" [value]='gatewayId'
+                            name="gatewayId" formControlName="gatewayId" [dataSource]='gatewaysList'
+                            [placeholder]='gatewayWaterMark' [fields]='gatewayFields' [popupHeight]='height'
+                            [sortOrder]="sortDropDown" (filtering)='onFilteringGateway($event)'
+                            [filterBarPlaceholder]="filterPlaceholder" [allowFiltering]='true'
+                            (change)='gateWayChange($event)' [locale]='locale'></ejs-dropdownlist> -->
+                                <select (change)="gateWayChange($event)" formControlName="gatewayId"
+                                    class="form-control m-input" required>
+                                    <option i18n="Option|Select@@select" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let gateway of gatewaysList" [value]="gateway.id">
+                                        {{gateway.name}}
+                                    </option>
+                                </select>
+                                <span class="help-block" *ngIf="((stopGatewayForm.get('gatewayId').touched ||
+                                stopGatewayForm.get('gatewayId').dirty) &&
+                                stopGatewayForm.get('gatewayId').errors)">
+                                    <span i18n="Message|Please Select GateWay@@gateWay.message"
+                                        *ngIf="stopGatewayForm.get('gatewayId').errors.required">
+                                        Please Select Gateway
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <label
+                            i18n="Communication Protocol|Communication Protocol@@communicationProtocol*">Communication
+                            Protocol<span class="text-danger">*</span> </label>
+                        <div class="form-group">
+                            <div [ngClass]="{'has-error': ((stopGatewayForm.get('communicationProtocolId').touched ||
+                            stopGatewayForm.get('communicationProtocolId').dirty) &&
+                            stopGatewayForm.get('communicationProtocolId').errors)}">
+                                <select formControlName="communicationProtocolId" (change)="commProtocolChange($event)"
+                                    class="form-control m-input" required>
+                                    <option i18n="Option|Select@@select" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let comm of communicationProtocolList" [value]="comm.id">
+                                        {{comm.commProtocol.name}}</option>
+
+                                </select>
+                                <span class="help-block" *ngIf="((stopGatewayForm.get('communicationProtocolId').touched ||
+                                stopGatewayForm.get('communicationProtocolId').dirty) &&
+                                stopGatewayForm.get('communicationProtocolId').errors)">
+                                    <span
+                                        i18n="Message| Please Select Communication Protocol@@communicationProtocol.message"
+                                        *ngIf="stopGatewayForm.get('communicationProtocolId').errors.required">
+                                        Please Select Communication Protocol
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="m-form__group row">
+                    <div class="col-lg-6">
+                        <label i18n="Data Handler|Data Handler@@dataHandler*">Data Handler<span
+                                class="text-danger">*</span></label>
+                        <div class="form-group">
+                            <div [ngClass]="{'has-error': ((stopGatewayForm.get('dataHandlerId').touched ||
+                                stopGatewayForm.get('dataHandlerId').dirty) &&
+                                stopGatewayForm.get('dataHandlerId').errors)}">
+                                <!-- <ejs-dropdownlist id='ddlelement' #ddlelement class="form-control p-0" [value]='dataHandlerId'
+                            name="dataHandlerId" formControlName="dataHandlerId" [dataSource]='dataHandlerList'
+                            [placeholder]='dataHandlerWaterMark' [fields]='dataHandlerFields' [popupHeight]='height'
+                            [sortOrder]="sortDropDown" (filtering)='onFilteringDataHandler($event)'
+                            [filterBarPlaceholder]="filterPlaceholder" [allowFiltering]='true'
+                             [locale]='locale'></ejs-dropdownlist> -->
+                                <select formControlName="dataHandlerId" class="form-control m-input" required>
+                                    <option i18n="Option|Select@@select" [ngValue]="null">--Select--</option>
+                                    <option *ngFor="let dataHandler of dataHandlerList" [value]="dataHandler.id">
+                                        {{dataHandler.name}}</option>
+                                </select>
+                                <span class="help-block" *ngIf="((stopGatewayForm.get('dataHandlerId').touched ||
+                                    stopGatewayForm.get('dataHandlerId').dirty) &&
+                                    stopGatewayForm.get('dataHandlerId').errors)">
+
+                                    <span i18n="Message|Please select Data Handler@@dataHandler.message"
+                                        *ngIf="stopGatewayForm.get('dataHandlerId').errors.required">
+                                        Please Select Data Handler
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        
+        <div class="path finalLine"></div>
+        <div class="row" style="    text-align: right;padding: 23px 0;">
+            <div class="col-md-12">
+                <button type="button" class="btn btn-secondary text-center"
+                    [disabled]="(!stopGatewayForm.dirty && stopGatewayForm.pristine)" i18n="Reset button|Reset@@reset"
+                    (click)="resetForm()">
+                    Reset
+                </button>
+                &nbsp;
+                <span i18n-matTooltip="Tooltip validation|Fill the mandatory fields@@fillTheMandatoryFields"
+                    matTooltip="Fill the mandatory fields" [matTooltipDisabled]='(stopGatewayForm.valid)'>
+                    <button i18n="Stop button|Stop@@stop" class="btn btn-primary text-center" (click)="sendForm()"
+                        type="submit" [disabled]="!(stopGatewayForm.valid)">
+                        Stop</button>
+                </span>
+            </div>
+        </div>
+
+        </form>
+    </div>
+</div>
+</div>
+<!-- Global modal notification component selector for cancel and final save form-->
+<app-modal-notification></app-modal-notification>
